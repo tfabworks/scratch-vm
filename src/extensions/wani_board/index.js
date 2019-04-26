@@ -17,7 +17,7 @@ class waniBoard {
 
     getInfo() {
         return {
-            id: 'tfabworks.waniboard',
+            id: 'waniBoard',
             name: formatMessage({
                 id: 'tfabworks.categoryName',
                 default: 'Electrical',
