@@ -7,12 +7,8 @@ const menuIconURI = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZ
 class waniBoard {
     constructor(runtime) {
         this.runtime = runtime
-        this.tempo = 60;
-        this.note = 60;
-        this.filePath = './assets/60.mp3'
-        this.player = null
-
-        this._setPlayer()
+        this.audioEngine = runtime.audioEngine
+        this.oscillator =  null
     }
 
     getInfo() {
@@ -53,48 +49,21 @@ class waniBoard {
         console.log('switch on')
         if (util.runtime.audioEngine === null) return;
         if (util.target.sprite.soundBank === null) return;
+        if (this.oscillator !== null) return;
+        this.oscillator =  this.audioEngine.audioContext.createOscillator()
+        this.oscillator.frequency.value = 17000
+        this.oscillator.connect(this.audioEngine.getInputNode())
 
-        const player = this.player
-        player.onEnded = function() {
-            this.emit('stop')
-            this.Playing = false
-            this.play()
-        }
-        const engine = util.runtime.audioEngine
-
-         // Create gain nodes for this note's volume, and chain them
-         // to the output.
-         const context = engine.audioContext;
-         const volumeGain = context.createGain();
-         volumeGain.gain.setValueAtTime(util.target.volume / 100, engine.currentTime);
-         volumeGain.connect(engine.getInputNode());
-
-        player.play()
-        player.connect({getInputNode () {
-            return volumeGain;
-        }});
+        this.oscillator.start()
     }
 
     switchOff() {
         console.log('switch off')
-        this.player.stop()
-    }
-
-    _setPlayer() {
-        const soundBuffer = require('!arraybuffer-loader!./assets/60.mp3')
-        return this._decodeSound(soundBuffer).then(player => {
-            this.player = player;
-        });
-    }
-
-    _decodeSound (soundBuffer) {
-        const engine = this.runtime.audioEngine;
-
-        if (!engine) {
-            return Promise.reject(new Error('No Audio Context Detected'));
+        if (this.oscillator !== null) {
+            this.oscillator.stop()
+            this.oscillator.disconnect()
+            this.oscillator = null
         }
-
-        return engine.decodeSoundPlayer({data: {buffer: soundBuffer}});
     }
 
     static get STATE_KEY() {
