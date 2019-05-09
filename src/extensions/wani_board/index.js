@@ -53,24 +53,6 @@ class waniBoard {
             blockIconURI: blockIconURI,
             blocks: [
                 {
-                    opcode: 'getBrightness',
-                    blockType: BlockType.REPORTER,
-                    text: formatMessage({
-                        id: 'tfabworks.brightness',
-                        default: 'brightness',
-                        description: 'brightness'
-                    })
-                },
-                {
-                    opcode: 'getMotion',
-                    blockType: BlockType.REPORTER,
-                    text: formatMessage({
-                        id: 'tfabworks.motion',
-                        default: 'motion',
-                        description: 'motion'
-                    })
-                },
-                {
                     opcode: 'whenBrightLessThan',
                     blockType: BlockType.BOOLEAN,
                     text: formatMessage({
@@ -110,16 +92,7 @@ class waniBoard {
             arguments: {},
         }
     }
-    getBrightness() {
-        return this.video.getBrightness()
-    }
     
-    getMotion (arg, util) {
-        this.video.analyzeFrame();
-        const state = this._analyzeLocalMotion(util.target);
-        return state.motionAmount;
-    }
-
     whenBrightLessThan(arg, util) {
         return this.video.getBrightness() < 30
     }
