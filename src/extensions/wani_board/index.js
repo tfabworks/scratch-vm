@@ -42,18 +42,18 @@ class waniBoard {
     getInfo() {
         return {
             id: 'waniBoard',
-            name: "Electrical",
+            name: "電気の利用",
             menuIconURI: menuIconURI,
             blockIconURI: blockIconURI,
             blocks: [
                 {
                     opcode: 'whenBrightLessThan',
                     blockType: BlockType.BOOLEAN,
-                    text: "暗くなったら"
+                    text: "暗くなった"
                 },
                 {
                     opcode: 'whenMotionGreaterThan',
-                    text: "動いたら",
+                    text: "動いた",
                     blockType: BlockType.BOOLEAN,
                 },
                 {
