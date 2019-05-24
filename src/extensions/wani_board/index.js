@@ -42,7 +42,7 @@ class waniBoard {
     getInfo() {
         return {
             id: 'waniBoard',
-            name: "電気の利用",
+            name: "電気回路制御",
             menuIconURI: menuIconURI,
             blockIconURI: blockIconURI,
             blocks: [
