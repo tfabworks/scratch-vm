@@ -49,7 +49,7 @@ class waniBoard {
                 {
                     opcode: 'whenBrightLessThan',
                     blockType: BlockType.BOOLEAN,
-                    text: "暗くなった"
+                    text: "暗い"
                 },
                 {
                     opcode: 'whenMotionGreaterThan',
@@ -107,7 +107,7 @@ class waniBoard {
         if (util.target.sprite.soundBank === null) return;
         if (this.oscillator !== null) return;
         this.oscillator =  this.audioEngine.audioContext.createOscillator()
-        this.oscillator.frequency.value = 17000
+        this.oscillator.frequency.value = 10000
         this.oscillator.connect(this.audioEngine.getInputNode())
 
         this.oscillator.start()
